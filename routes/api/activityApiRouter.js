@@ -55,6 +55,24 @@ function routes(Activity) {
         }
         return res.json(req.activity);
       });
+    })
+    .patch((req, res) => {
+      // eslint-disable-next-line no-underscore-dangle
+      if (req.body._id) {
+        // eslint-disable-next-line no-underscore-dangle
+        delete req.body._id;
+      }
+      Object.entries(req.body).forEach((item) => {
+        const key = item[0];
+        const value = item[1];
+        req.activity[key] = value;
+      });
+      req.activity.save((err) => {
+        if (err) {
+          return res.send(err);
+        }
+        return res.json(req.activity);
+      });
     });
 
   return activityRouter;
