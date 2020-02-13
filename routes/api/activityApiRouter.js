@@ -23,6 +23,16 @@ function routes(Activity) {
       return res.status(201).json(activity);
     });
 
+  activityRouter.route('/api/activity/:activityId')
+    .get((req, res) => {
+      Activity.findById(req.params.activityId, (err, activity) => {
+        if (err) {
+          return res.send(err);
+        }
+        return res.json(activity);
+      });
+    });
+
   return activityRouter;
 }
 
