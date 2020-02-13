@@ -16,6 +16,11 @@ function routes(Activity) {
         }
         return res.json(activities);
       });
+    })
+    .post((req, res) => {
+      const activity = new Activity(req.body);
+      activity.save();
+      return res.status(201).json(activity);
     });
 
   return activityRouter;
