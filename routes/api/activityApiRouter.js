@@ -15,8 +15,12 @@ function routes(Activity) {
     })
     .post((req, res) => {
       const activity = new Activity(req.body);
-      activity.save();
-      return res.status(201).json(activity);
+      activity.save((err) => {
+        if (err) {
+          return res.send(err);
+        }
+        return res.status(201).json(activity);
+      });
     });
 
   activityRouter.use('/api/activity/:activityId', (req, res, next) => {
@@ -40,6 +44,16 @@ function routes(Activity) {
           return res.send(err);
         }
         return res.sendStatus(204);
+      });
+    })
+    .put((req, res) => {
+      req.activity.title = req.body.title;
+      req.activity.created_by = req.body.created_by;
+      req.activity.save((err) => {
+        if (err) {
+          return res.send(err);
+        }
+        return res.json(req.activity);
       });
     });
 
