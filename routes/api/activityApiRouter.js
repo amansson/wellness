@@ -57,9 +57,7 @@ function routes(Activity) {
       });
     })
     .patch((req, res) => {
-      // eslint-disable-next-line no-underscore-dangle
       if (req.body._id) {
-        // eslint-disable-next-line no-underscore-dangle
         delete req.body._id;
       }
       Object.entries(req.body).forEach((item) => {
